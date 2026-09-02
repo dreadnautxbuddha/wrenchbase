@@ -19,16 +19,35 @@ Many maintenance tools are either too narrow, focused only on cars, or too heavy
 
 Wrenchbase aims to sit in the middle: flexible enough to model vehicles, parts, equipment, and nested assets, while remaining simple enough for individuals, hobbyists, small garages, and small teams.
 
-## Planned Stack
+## Stack
 
-- Symfony API
-- Next.js, React, and TypeScript frontend
-- PostgreSQL database
-- Docker Compose for local development
+- PHP 8.5 and Symfony 8.1 API
+- Next.js 16, React 19, and TypeScript frontend
+- PostgreSQL 16 database
+- Docker Compose for development and production images
 - S3-compatible object storage for attachments
+
+## Development
+
+Docker is the only host dependency. PHP, Composer, Node.js, npm, PostgreSQL, and all test tools run in containers.
+
+```shell
+make up
+```
+
+The web app is available at [http://localhost:3000](http://localhost:3000). The API is available at [https://localhost:8443](https://localhost:8443) using a locally trusted Caddy certificate.
+
+```shell
+make test       # PHPUnit
+make api-qa     # GrumPHP: Composer, PHP CS Fixer, PHPStan, PHPUnit
+make web-check  # ESLint and TypeScript
+make check      # all checks
+```
+
+Run `make hooks` once to use the repository's containerized GrumPHP pre-commit hook. App-specific generated files are ignored by `api/.gitignore` and `web/.gitignore`; repository-wide editor and environment files are ignored at the root.
 
 ## Project Status
 
-Wrenchbase is currently in early planning.
+Wrenchbase is currently in early development.
 
 See [docs/product-vision.md](docs/product-vision.md), [docs/architecture.md](docs/architecture.md), and [docs/roadmap.md](docs/roadmap.md) for the current direction.

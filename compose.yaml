@@ -1,0 +1,17 @@
+name: wrenchbase
+
+include:
+  - path:
+      - ./api/compose.yaml
+      - ./api/compose.override.yaml
+  - path:
+      - ./web/compose.yaml
+      - ./web/compose.override.yaml
+
+services:
+  api:
+    environment:
+      GIT_DIR: /workspace/.git
+      GIT_WORK_TREE: /workspace
+    volumes:
+      - ./:/workspace

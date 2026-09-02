@@ -1,0 +1,5 @@
+#!/bin/sh
+
+set -eu
+
+docker compose run --rm -T --workdir /workspace/api api vendor/bin/grumphp run --no-interaction

@@ -1,0 +1,7 @@
+name: wrenchbase
+
+include:
+  - path:
+      - ./api/compose.yaml
+      - ./api/compose.prod.yaml
+  - path: ./web/compose.yaml

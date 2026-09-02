@@ -101,6 +101,23 @@ Asset/
 - Keep asset type, attribute, and maintenance plan changes online-only in v1.
 - Allow offline creation of maintenance jobs in v1, but avoid offline edits and deletes until sync behavior is more mature.
 
+## Markdown Guidelines
+
+- Keep Markdown readable in its raw form as well as when rendered.
+- Use ATX headings (`#`, `##`, and so on) with a single space after the marker, and do not skip heading levels.
+- Leave a blank line before and after headings, lists, tables, and fenced code blocks.
+- Use fenced code blocks with an appropriate language identifier when one is available.
+- Prefer descriptive link text over bare URLs, and use relative links for files within the repository.
+- Keep list markers and indentation consistent within each list.
+- Pad Markdown table cells with spaces and align every column's pipes in the source. Size each column to its widest cell, including its header, and realign the entire table whenever its contents change. For example:
+
+  ```markdown
+  | Asset type | Example        | Tracks mileage |
+  | ---------- | -------------- | -------------- |
+  | Vehicle    | Delivery van   | Yes            |
+  | Equipment  | Air compressor | No             |
+  ```
+
 ## Working in the Repository
 
 - Keep changes scoped to the application or shared contract involved in the task.

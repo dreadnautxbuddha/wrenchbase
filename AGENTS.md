@@ -56,3 +56,14 @@ Follow the nearest `AGENTS.md` when working inside a subdirectory. Directory-spe
 - Add or update tests for behavior changes, especially domain rules and historical-record behavior.
 - Run checks from the application directory you changed: `composer qa` in `api/` and `npm run check` in `web/`.
 - Treat each application's manifest and lockfile as the source of truth for exact dependency versions.
+
+## Commit Discipline
+
+- Create commits automatically as work is completed unless the user explicitly asks to leave changes uncommitted or committing is unsafe or blocked.
+- Make each commit a single cohesive change. Do not combine unrelated features, fixes, refactors, formatting, or documentation in one commit merely because they belong to the same task.
+- It is acceptable, and often preferable, for separate commits to modify the same file when the edits represent distinct logical changes.
+- Keep implementation and its directly related tests together. Do not split changes that need each other to build, run, or explain their intent.
+- Keep each commit reviewable and independently valid where practical. Run the most relevant available checks before committing.
+- Inspect the working tree before staging. Stage explicit files or hunks and never include unrelated or pre-existing user changes in a commit.
+- Use a Conventional Commit-style subject, including an appropriate scope when useful, followed by a concise explanatory body.
+- In every commit body, explain why the change is needed, what behavior or implementation changed, and how it was verified.

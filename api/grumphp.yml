@@ -1,0 +1,16 @@
+grumphp:
+    process_timeout: 120
+    fixer:
+        enabled: true
+        fix_by_default: false
+    tasks:
+        composer:
+            strict: true
+        phpcsfixer:
+            config: .php-cs-fixer.dist.php
+            allow_risky: true
+        phpstan:
+            configuration: phpstan.neon
+            memory_limit: "-1"
+        phpunit:
+            config_file: phpunit.dist.xml

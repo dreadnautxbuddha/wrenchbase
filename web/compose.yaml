@@ -1,0 +1,16 @@
+---
+services:
+  web:
+    image: ${WEB_IMAGE:-wrenchbase-web-prod}
+    build:
+      context: .
+      target: production
+    environment:
+      INTERNAL_API_URL: http://api
+      NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-https://localhost:8443}
+    ports:
+      - name: http
+        target: 3000
+        published: ${WEB_PORT:-3000}
+        protocol: tcp
+    restart: unless-stopped

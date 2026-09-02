@@ -6,6 +6,7 @@ services:
       target: development
     environment:
       NODE_ENV: development
+      NEXT_PUBLIC_API_URL: http://localhost:${HTTP_PORT:-8080}
       WATCHPACK_POLLING: "true"
     volumes:
       - ./:/app

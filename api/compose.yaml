@@ -3,7 +3,7 @@ services:
   api:
     restart: unless-stopped
     environment:
-      SERVER_NAME: ${SERVER_NAME:-localhost}, api:80
+      SERVER_NAME: https://${SERVER_NAME:-localhost}:${HTTPS_PORT:-8443}, http://api:80
       DEFAULT_URI: https://${SERVER_NAME:-localhost}:${HTTPS_PORT:-8443}
       MERCURE_PUBLISHER_JWT_KEY: ${CADDY_MERCURE_JWT_SECRET:-!ChangeThisMercureHubJWTSecretKey!}
       MERCURE_SUBSCRIBER_JWT_KEY: ${CADDY_MERCURE_JWT_SECRET:-!ChangeThisMercureHubJWTSecretKey!}
@@ -22,11 +22,11 @@ services:
         published: ${HTTP_PORT:-8080}
         protocol: tcp
       - name: https
-        target: 443
+        target: ${HTTPS_PORT:-8443}
         published: ${HTTPS_PORT:-8443}
         protocol: tcp
       - name: http3
-        target: 443
+        target: ${HTTPS_PORT:-8443}
         published: ${HTTP3_PORT:-8443}
         protocol: udp
 

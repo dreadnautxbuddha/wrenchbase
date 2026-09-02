@@ -35,7 +35,7 @@ Docker is the only host dependency. PHP, Composer, Node.js, npm, PostgreSQL, and
 make up
 ```
 
-The web app is available at [http://localhost:3000](http://localhost:3000). The API is available at [https://localhost:8443](https://localhost:8443) using a locally trusted Caddy certificate.
+The web app is available at [http://localhost:3000](http://localhost:3000). The API is available at [http://localhost:8080](http://localhost:8080); HTTPS is also exposed at `https://localhost:8443` using Caddy's local development certificate.
 
 ```shell
 make test       # PHPUnit

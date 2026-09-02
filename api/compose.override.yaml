@@ -16,6 +16,8 @@ services:
       #  from the bind-mount for better performance by enabling the next line:
       #- /app/vendor
     environment:
+      SERVER_NAME: http://localhost:80, https://localhost:${HTTPS_PORT:-8443}, http://api:80
+      DEFAULT_URI: http://localhost:${HTTP_PORT:-8080}
       FRANKENPHP_WORKER_CONFIG: watch
       FRANKENPHP_SITE_CONFIG: hot_reload
       MERCURE_EXTRA_DIRECTIVES: demo

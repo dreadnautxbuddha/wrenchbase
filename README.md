@@ -27,6 +27,13 @@ Wrenchbase aims to sit in the middle: flexible enough to model vehicles, parts, 
 - Docker Compose for development and production images
 - S3-compatible object storage for attachments
 
+## Repository Layout
+
+- `api/` contains the Symfony API and its PHPUnit test suite.
+- `web/` contains the Next.js browser application, which is the primary client today.
+- `docs/` contains the product vision, architecture, and roadmap.
+- `mobile/` is reserved for a future React Native client and does not exist yet.
+
 ## Development
 
 Docker is the only host dependency. PHP, Composer, Node.js, npm, PostgreSQL, and all test tools run in containers.
@@ -46,8 +53,10 @@ make check      # all checks
 
 Run `make hooks` once to use the repository's containerized GrumPHP pre-commit hook. App-specific generated files are ignored by `api/.gitignore` and `web/.gitignore`; repository-wide editor and environment files are ignored at the root.
 
+See [CONTRIBUTING.md](CONTRIBUTING.md) for testing, quality, documentation, and commit standards.
+
 ## Project Status
 
 Wrenchbase is currently in early development.
 
-See [docs/product-vision.md](docs/product-vision.md), [docs/architecture.md](docs/architecture.md), and [docs/roadmap.md](docs/roadmap.md) for the current direction.
+See [the product vision](docs/product-vision.md), [the architecture](docs/architecture.md), and [the roadmap](docs/roadmap.md) for the current direction.

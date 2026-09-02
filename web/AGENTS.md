@@ -21,6 +21,20 @@ Read the [application boundaries and frontend architecture](../docs/architecture
 - Do not duplicate domain rules that the API can enforce.
 - Keep workflows mobile-first while retaining a good desktop experience.
 
+## Frontend Architecture
+
+- Organize product code by capability first and by Clean Architecture layer second. Use `features/` as the Wrenchbase convention for capabilities; it has no special meaning to Next.js.
+- Keep React, Next.js, TanStack Query, HTTP, IndexedDB, and browser APIs out of Domain and Application.
+- Add a Domain layer only for genuine framework-independent client-owned behavior. Do not recreate API aggregates as frontend domain objects merely because the API returns their data.
+- Keep external request and response DTOs private to Infrastructure. Map them to Application read models or genuine Domain objects before returning them inward.
+- Let Presentation depend on Application and Domain, but do not import concrete Infrastructure implementations from React components or TanStack Query hooks.
+- Define purpose-specific ports in Application and implement them in Infrastructure. Wire concrete adapters to use cases only in Composition.
+- Keep browser and server composition separate when their APIs or configuration differ. Do not import browser-only modules into the server module graph.
+- Treat Next.js `app/` pages, layouts, providers, loading states, and error boundaries as thin delivery code.
+- Do not call `fetch`, construct API URLs, interpret HTTP responses, or access IndexedDB directly in React components.
+- Do not use Next.js Route Handlers or Server Functions as a duplicate business backend; the Symfony API remains authoritative.
+- Do not create empty architectural layers in advance. Introduce a layer when a capability has code that belongs there.
+
 ## State and Offline Behavior
 
 - Use TanStack Query for server state.

@@ -101,6 +101,36 @@ Asset/
 - Keep asset type, attribute, and maintenance plan changes online-only in v1.
 - Allow offline creation of maintenance jobs in v1, but avoid offline edits and deletes until sync behavior is more mature.
 
+## Testing Standards
+
+- Cover behavior changes with automated tests in the application they affect. When a change spans the API contract and the web client, add or update tests in both applications.
+- Keep tests focused on observable behavior, especially domain rules and the historical meaning of maintenance records.
+- Name API tests using a Given-When-Then structure so the precondition, action, and expected outcome are explicit. For example:
+
+  ```php
+  public function testGivenAnArchivedAssetWhenItIsUpdatedThenTheUpdateIsRejected(): void
+  {
+      // ...
+  }
+  ```
+
+- Structure Vitest suites with an outer `describe()` block for the Given precondition and a nested `describe()` block for the When action. Express each Then outcome as a separate `test()` or `it()` call. For example:
+
+  ```typescript
+  describe("Given an archived asset", () => {
+    describe("When the user attempts to update it", () => {
+      it("then displays an error message", () => {
+        // ...
+      });
+
+      it("then does not submit the update", () => {
+        // ...
+      });
+    });
+  });
+  ```
+- Run the checks for every application changed: `composer qa` from `api/` and `npm run check` from `web/`.
+
 ## Markdown Guidelines
 
 - Keep Markdown readable in its raw form as well as when rendered.

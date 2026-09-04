@@ -23,6 +23,30 @@ The future `mobile/` directory should not be created until mobile application wo
 - Keep client-specific presentation and interaction logic in the relevant client directory.
 - Design API contracts for both browser and React Native clients; avoid coupling responses to Next.js-specific behavior.
 - Do not duplicate domain rules across clients when the API can enforce them.
+- Follow the [API contract](api-contract.md) for shared client behavior, the
+  [offline synchronization contract](offline-sync.md) for queued work, and the
+  [security and data lifecycle policy](security-and-data-lifecycle.md) for
+  tenant and attachment handling.
+
+## Identity and Tenancy
+
+Wrenchbase delegates authentication to a standards-compliant OpenID Connect
+issuer. Browser and future mobile clients use Authorization Code with PKCE; the
+API accepts bearer access tokens and validates their issuer, audience, expiry,
+and subject before loading a Wrenchbase user profile. Application code depends
+on an identity port, not an identity-vendor SDK.
+
+The API is multi-tenant. Workspace membership and named capabilities are loaded
+for every workspace-scoped request, and repositories must scope every query and
+mutation to the authorized workspace. Workspace identity is part of the API
+path, rather than ambient server or browser state, so clients can safely switch
+workspaces and background synchronization has an unambiguous tenant.
+
+Use S3-compatible object storage through an Application-owned attachment port.
+The API authorizes each upload and download and creates short-lived signed URLs;
+clients never receive bucket credentials. Email delivery, OIDC validation,
+object storage, clock access, and background delivery are infrastructure
+adapters behind purpose-specific ports.
 
 ## Backend Architecture
 

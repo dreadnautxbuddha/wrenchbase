@@ -52,7 +52,22 @@ plan" as a synonym.
 ## Workspace, Members, and Settings
 
 Every record belongs to one workspace. A user may belong to multiple
-workspaces. The MVP provides two roles:
+workspaces and can switch their active workspace without signing in again. The
+active workspace is always explicit in the client route and API request; a
+member must never see or modify data from another workspace by mistake.
+
+Authentication uses an OpenID Connect provider. On a first sign-in, a user with
+no memberships can either create a workspace or ask an existing workspace owner
+outside Wrenchbase to invite the email address verified by the provider.
+Wrenchbase does not create a personal workspace automatically and does not
+provide a workspace directory or self-service join requests in the MVP.
+
+Owners invite members by email. Invitations are single-use, expire, and grant
+the `member` role only after the invitee signs in with the invited email
+address. An owner may revoke a pending invitation. Ownership can be transferred
+only to an existing member; the last owner cannot leave or be removed.
+
+The MVP provides two roles:
 
 - `owner` can manage workspace settings and membership, as well as all
   maintenance data.
@@ -209,6 +224,14 @@ Deferred or not-done work remains due. Closing a partially completed job prompts
 the member to carry unfinished items into a new planned job or create a
 maintenance need.
 
+Any workspace member can add an ad-hoc work item while a job is `draft`,
+`planned`, or `active`, including while work is happening on site. The member
+chooses its target asset and may record materials, evidence, a cost allocation,
+and an inspection outcome. An ad-hoc work item is historical work by default;
+it affects a requirement only when the member explicitly maps it to that
+requirement. Closed jobs are never edited in place: a later correction or
+on-site discovery is recorded through an amendment or a new job.
+
 A job records its site or location by default, but may use a maintainer address
 or custom place. Completion snapshots the chosen place, address, and timezone.
 It may include reusable external people or organizations, workspace members,
@@ -271,6 +294,9 @@ creating duplicate jobs.
 
 - A workspace owner invites a partner, configures sites and locations, and both
   can manage maintenance data while only the owner manages membership.
+- A user who belongs to both a home and workshop workspace switches between
+  them without seeing cross-workspace assets; a new user may create a workspace
+  or accept an owner-sent invitation.
 - An owner defines a 2024 Yamaha NMAX type with a recursively typed CVT, then
   creates a concrete NMAX with required components.
 - A second-hand asset at 35,000 km acknowledges an unknown brake-fluid baseline
@@ -279,6 +305,9 @@ creating duplicate jobs.
   30,000 km; deferred CVT cleaning stays due with a planned-job annotation.
 - A closed weekend job carries unfinished work forward without resetting its
   requirements.
+- A member adds an unplanned repair while an active service job is in progress;
+  the repair is retained as ad-hoc history unless it is explicitly linked to a
+  maintenance requirement.
 - Replacing an engine preserves the old engine's work history, starts the new
   engine's lifecycle, and keeps the parent asset's report coherent.
 - A schedule revision adding a three-month oil-change trigger retains existing

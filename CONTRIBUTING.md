@@ -53,6 +53,21 @@ make check
 
 The underlying application commands are `composer qa` from `api/` and `npm run check` from `web/`.
 
+## Contracts and Releases
+
+- Update [the API contract](docs/api-contract.md) with every client-visible API
+  behavior change and keep affected clients compatible in the same change.
+- Update [the offline synchronization contract](docs/offline-sync.md) when a
+  queued command, conflict, or sync state changes.
+- Update [the deployment guide](docs/deployment.md) when a required environment
+  variable, service dependency, migration procedure, or operational runbook
+  changes.
+- Treat dependency updates as reviewable changes: update only the relevant
+  manifest and lockfile, run its application checks, and record security- or
+  compatibility-relevant changes in the pull request or commit body.
+- A release must pass `make check`, apply migrations successfully, complete a
+  health check, and have a tested backup restore for its target environment.
+
 ## Markdown Guidelines
 
 - Keep Markdown readable in its raw form as well as when rendered.

@@ -36,8 +36,9 @@ Wrenchbase aims to sit in the middle: flexible enough to model vehicles, parts, 
 
 - `api/` contains the Symfony API and its PHPUnit test suite.
 - `web/` contains the Next.js browser application, which is the primary client today.
-- `docs/` contains the product vision, product requirements, architecture, and
-  roadmap.
+- `docs/` contains the product vision, product requirements, architecture,
+  API contract, offline-sync contract, security policy, deployment guide, UX
+  brief, and roadmap.
 - `mobile/` is reserved for a future React Native client and does not exist yet.
 
 ## Development
@@ -60,6 +61,19 @@ make check      # all checks
 Run `make hooks` once to use the repository's containerized GrumPHP pre-commit hook. App-specific generated files are ignored by `api/.gitignore` and `web/.gitignore`; repository-wide editor and environment files are ignored at the root.
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for testing, quality, documentation, and commit standards.
+
+## Documentation
+
+The [product requirements](docs/product-requirements.md) are authoritative for
+product behavior. The [architecture](docs/architecture.md) sets code and client
+boundaries. Read the [API contract](docs/api-contract.md) before changing a
+client-visible endpoint, the [offline synchronization contract](docs/offline-sync.md)
+before changing queued work, and the [security and data lifecycle policy](docs/security-and-data-lifecycle.md)
+before changing identity, tenancy, or attachments.
+
+Use the [deployment guide](docs/deployment.md) for portable production and AWS
+reference operations, and the [UX and accessibility brief](docs/ux-accessibility.md)
+for browser workflows.
 
 ## Project Status
 

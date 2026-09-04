@@ -1,17 +1,22 @@
 # Wrenchbase
 
-Wrenchbase is an open-source, mobile-first maintenance tracker for vehicles, equipment, and nested assets.
+Wrenchbase is an open-source, mobile-first maintenance tracker for vehicles,
+equipment, and recursively nested assets.
 
-It helps owners keep a clear record of what they own, what work has been done, what parts were used, and what maintenance is due next.
+It helps individuals and small teams keep a clear record of what they own or
+operate, what work has been done, what components changed, and what maintenance
+is due next.
 
 ## What It Tracks
 
-- Assets such as cars, scooters, tools, machines, parts, and equipment
-- Parent and child asset relationships, such as a vehicle with tires, battery, engine, or other subparts
-- Maintenance, repair, inspection, and service jobs
-- Photos, receipts, invoices, part numbers, notes, and costs
-- Manufacturer or custom maintenance recommendations
-- Upcoming, due soon, overdue, and never-completed work
+- Versioned asset types and concrete assets such as cars, scooters, tools,
+  machines, upgrades, and equipment
+- Recursive component relationships, installation history, and physical
+  locations
+- Maintenance schedules, due work, meter readings, planned jobs, and completed
+  service history
+- Photos, receipts, invoices, part numbers, notes, maintainers, and costs
+- Workspace notifications and scoped offline job drafting
 
 ## Product Direction
 
@@ -31,7 +36,8 @@ Wrenchbase aims to sit in the middle: flexible enough to model vehicles, parts, 
 
 - `api/` contains the Symfony API and its PHPUnit test suite.
 - `web/` contains the Next.js browser application, which is the primary client today.
-- `docs/` contains the product vision, architecture, and roadmap.
+- `docs/` contains the product vision, product requirements, architecture, and
+  roadmap.
 - `mobile/` is reserved for a future React Native client and does not exist yet.
 
 ## Development
@@ -59,4 +65,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for testing, quality, documentation, and 
 
 Wrenchbase is currently in early development.
 
-See [the product vision](docs/product-vision.md), [the architecture](docs/architecture.md), and [the roadmap](docs/roadmap.md) for the current direction.
+See [the product vision](docs/product-vision.md), the authoritative
+[product requirements](docs/product-requirements.md),
+[the architecture](docs/architecture.md), and [the roadmap](docs/roadmap.md)
+for the current direction.

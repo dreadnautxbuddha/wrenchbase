@@ -11,7 +11,9 @@ Wrenchbase is an open-source, mobile-first asset management and maintenance trac
 
 ## Required Context
 
-- Read the [product vision](docs/product-vision.md) before making product behavior or scope decisions.
+- Read the [product vision](docs/product-vision.md) and the authoritative
+  [product requirements](docs/product-requirements.md) before making product
+  behavior or scope decisions.
 - Read the [architecture](docs/architecture.md) before changing application boundaries, domain structure, persistence design, client state, or offline behavior.
 - Follow the [contribution standards](CONTRIBUTING.md) for tests, quality checks, Markdown, and commits.
 - Use the [README](README.md) for the repository layout, stack, development environment, and root commands.
@@ -23,9 +25,11 @@ Wrenchbase is an open-source, mobile-first asset management and maintenance trac
 - Treat the API as the source of truth for business rules, authorization, validation, and persistence.
 - Keep client-specific presentation and interaction logic in the relevant client.
 - Design API contracts for both browser and React Native clients; avoid Next.js-specific response contracts.
-- Preserve historical meaning when assets, configurable attributes, maintenance plans, or completed maintenance records change.
+- Preserve historical meaning when assets, configurable attributes, maintenance
+  schedules, locations, or completed maintenance records change.
 - Treat maintenance jobs as append-friendly records with clear history behavior.
-- Keep core domain concepts relational while supporting configurable asset types and attributes.
+- Keep core domain concepts relational while supporting versioned asset types,
+  recursive component hierarchies, configurable attributes, and typed meters.
 - Keep offline support scoped and practical for v1, as defined in the product and architecture documentation.
 
 ## Working in the Repository

@@ -78,7 +78,7 @@ Asset/
 
 ## Frontend Architecture
 
-Organize browser application code by capability first and by Clean Architecture layer second. Capabilities should reflect product concepts such as assets, asset types, maintenance jobs, maintenance plans, and due work rather than pages or framework features.
+Organize browser application code by capability first and by Clean Architecture layer second. Capabilities should reflect product concepts such as workspaces, assets, asset types, maintenance schedules, jobs, and due work rather than pages or framework features.
 
 The allowed source-code dependency direction is:
 
@@ -145,96 +145,115 @@ Do not use Next.js Route Handlers or Server Functions as a second business backe
 
 ## Domain Storage
 
-Keep core maintenance concepts relational and use flexible attribute values only where flexibility is required.
+Keep core maintenance concepts relational. Flexible values are allowed only where
+the product needs them; they must not replace typed relationships, lifecycle
+history, authorization, or due-work rules. The normative behavior is defined in
+the [product requirements](product-requirements.md).
 
-Planned core entities include:
+The domain will need relational capabilities for:
 
-- `asset_types`
-- `asset_type_attributes`
-- `assets`
-- `asset_attribute_values`
-- `maintenance_plans`
-- `maintenance_plan_items`
-- `jobs`
-- `job_attachments`
+- workspaces, members, capabilities, sites, and nested locations
+- versioned asset types, typed attributes, meters, and component roles
+- assets, direct placements, component installations, movements, and lifecycle
+  states
+- maintenance schedules, revisions, requirements, typed triggers, assignments,
+  overrides, and baselines
+- meter readings and inherited component usage
+- jobs, work items, requirement completions, maintenance needs, participants,
+  costs, and attachments
+- notifications, reports, and offline outbox state
 
-## Configurable Asset Types
+Do not choose a final table layout before the relevant capability is implemented.
+The API must preserve the following invariants regardless of persistence shape:
 
-Users can define asset types such as car, scooter, tire, battery, engine, appliance, or tool. Each asset type can define attributes appropriate to that type.
+- Every record is scoped to a workspace and authorization is capability-based.
+- Published asset type and schedule revisions are immutable.
+- An active asset is either directly placed in one location or installed in one
+  parent asset, never both or neither.
+- Asset and location hierarchies are acyclic.
+- Jobs and their completed work preserve historical snapshots; corrections use
+  amendments or voids rather than silent rewrites.
+- Completed work is the only source that resets a maintenance requirement.
+- Archived, retired, disposed, voided, and soft-deleted records retain their
+  distinct historical meanings.
 
-Assets must belong to an asset type. Assets may also have a parent asset, allowing nested structures:
+## Configurable Asset Types and Values
 
-```text
-Car
-  Engine
-  Battery
-  Tire Set
-    Front Left Tire
-    Front Right Tire
-```
+Asset types are reusable blueprints, not merely broad categories. A type can be
+generic, such as `Keyboard`, or specific, such as `2024 Yamaha NMAX`. A type
+revision defines typed attributes, meters, component roles, and named schedule
+alternatives. Types compose through component roles but do not inherit from
+other types.
 
-## Attribute Values
+Use a hybrid value model for configured attributes: typed columns or relations
+for text, numbers or measurements, booleans, dates, and choices; structured
+data only for genuinely complex future field kinds. Keep field identities stable
+across revisions so archived fields and their values remain explainable.
 
-Attribute values should use a hybrid storage model:
+Model independently maintainable, replaceable, reusable, or reportable parts as
+assets. Model ordinary consumables as work-item materials. Component
+installations are dated relations, not a timeless `parent_id`, because a child
+may be replaced, moved, retired, or installed elsewhere.
 
-```text
-asset_attribute_values
-  id
-  asset_id
-  asset_type_attribute_id
-  value_json
-  value_text
-  value_number
-  value_date
-  value_boolean
-```
+## Schedules, Usage, and Time
 
-`value_json` supports flexible or complex values. Typed columns make filtering and reporting practical for common values such as dates, numbers, and booleans.
+Maintenance schedules and asset types use independent immutable revision
+streams. A concrete asset selects one base schedule alternative and may have
+explicit additions, disables, and overrides. Schedule requirements retain stable
+identities across ordinary revisions so completion history follows a corrected
+rule without title matching.
 
-Asset type attributes should not be hard-deleted once used by an asset:
+Represent schedule triggers as typed variants. The first version supports
+one-time date or meter milestones, elapsed intervals, meter intervals, calendar
+recurrences, and manual requirements. It also supports initial phases, rolling
+or anchored recurrence, and first-reached or all-reached trigger policies. Keep
+the evaluator extensible; do not persist executable formulas or arbitrary rule
+expressions.
 
-- An unused attribute may be deleted.
-- A used attribute should be archived or deactivated.
-- Archived attributes should remain visible on assets that already have values.
-- Archived attributes should not appear by default when creating new assets.
+Asset types may define multiple meters. Components inherit compatible host usage
+while installed unless a component uses its own meter. Store meter readings and
+their corrections as history. The API calculates due work from effective
+readings, schedule baselines, completed work, and active placements.
 
-This preserves historical data and prevents orphaned values.
+Store instants in UTC and calendar-only facts as dates. Calendar recurrences are
+evaluated in the asset site's IANA timezone. Snapshot a job's location and
+timezone so later moves or site edits never reinterpret history.
 
-## Maintenance Plans
+## Jobs, Reports, and Notifications
 
-Maintenance plans represent manufacturer or custom recommendations. Plan items may be triggered by distance, time, usage hours, or manual conditions.
+A job is a service event with targeted work items. Work items may be ad hoc or
+explicitly fulfill requirements. Job status and work-item completion are
+separate so a closed job can preserve completed, deferred, and not-done work.
+Use a purpose-specific replacement operation to atomically end one installation
+and start another.
 
-The due-work engine should compare completed jobs against active maintenance plan items and return statuses such as:
+Store receipts and invoices at job scope and evidence at job or work-item scope.
+Keep one job total plus optional work-item allocations to avoid double-counting
+cost. Model maintainers as reusable people or organizations and allow workspace
+members to participate directly.
 
-- `ok`
-- `due soon`
-- `overdue`
-- `never done`
+The API owns due-work calculation, notification eligibility, report data, and
+authorization. The browser renders those read models and must not replicate the
+schedule evaluator or lifecycle rules.
 
-## Frontend State
+## Frontend State and Offline Scope
 
-Use TanStack Query for server state such as assets, jobs, plans, and due-work summaries.
+Use TanStack Query for server state such as assets, schedules, jobs, due-work
+summaries, notifications, and reports. Use component state for simple UI state.
+Add a small client-state library only if UI state becomes difficult to manage
+with React alone.
 
-Use component state for simple UI state. Add a small client-state library only if UI state becomes difficult to manage with React alone.
+Offline data belongs in IndexedDB, likely through Dexie; do not use
+`localStorage` for meaningful offline data. Cache recently used and explicitly
+pinned asset trees. Draft jobs, readings, attachments, and replacement proposals
+can be created offline using cached types. Asset type and schedule authoring are
+online-only.
 
-Offline data should be stored in IndexedDB, likely through Dexie. Do not use `localStorage` for meaningful offline data.
+The client owns local draft behavior and sync presentation. It generates stable
+idempotency IDs, synchronizes while the app is open or returns to the foreground,
+and exposes manual Sync now and Retry controls. The API validates and atomically
+publishes completed jobs. It returns semantic conflicts for member review rather
+than guessing how to merge stale component, schedule, meter, or lifecycle state.
 
-## Offline Scope
-
-The first version should avoid full offline-first behavior.
-
-Supported in v1:
-
-- Cached offline read access for recently viewed assets and histories
-- Offline creation of maintenance job drafts
-- Queued photo and receipt uploads
-- Sync status and outbox view
-
-Online-only in v1:
-
-- Asset type changes
-- Asset attribute changes
-- Maintenance plan changes
-- Edits and deletes of existing records
-
-Suggested sync states are `pending`, `syncing`, `synced`, `failed`, and `needs_review`.
+Use sync states `pending`, `syncing`, `synced`, `failed`, and `needs_review`.
+Do not promise synchronization while the browser is closed in the first version.

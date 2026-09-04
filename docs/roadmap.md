@@ -1,39 +1,58 @@
 # Roadmap
 
-This roadmap is intentionally small at first. Wrenchbase should become useful before it becomes broad.
+This roadmap delivers one coherent MVP through capability milestones. Each
+milestone should remain useful on its own while preserving the product rules in
+the [product requirements](product-requirements.md).
 
-## MVP
+## MVP 1: Workspace and Asset Foundation
 
-- Asset type builder with configurable attributes
-- Asset creation and editing
-- Parent and child asset hierarchy
-- Maintenance job logging
-- Photo and receipt attachments for jobs
-- Manufacturer or custom maintenance plans
-- Due and overdue maintenance calculation
-- Mobile-first dashboard
-- Asset service timeline
-- Pending sync and outbox view
+- Authentication, private workspaces, owner and member roles, and
+  capability-based authorization
+- Workspace settings, member management, sites, and nested locations
+- Versioned asset types with typed attributes, meters, and component roles
+- Concrete assets, recursive installation history, placement, movement,
+  retirement, disposal, and restorable trash
+
+## MVP 2: Schedules and Due Work
+
+- Versioned maintenance schedule alternatives and source citations
+- Requirements with one-time, elapsed, meter, calendar, and manual triggers
+- Rolling and anchored recurrence, initial service phases, overrides, and
+  schedule adoption diffs
+- Meter readings, inherited component usage, baselines, due-work calculation,
+  and unknown-history handling
+
+## MVP 3: Work Execution
+
+- Planned, active, closed, amended, and voided maintenance jobs
+- Targeted work items, partial completion, assignments, and requirement
+  completions
+- Maintainers, work locations, costs, attachments, inspection outcomes, and
+  follow-up maintenance needs
+- Atomic component replacement and lifecycle reporting
+
+## MVP 4: Awareness and Reporting
+
+- Mobile-first due-work dashboard and notification center
+- Per-member email preferences, due transitions, weekly digests, and
+  meter-reading reminders
+- Workspace-only asset, component, history, cost, evidence, and compliance
+  reports
+
+## MVP 5: Offline Resilience
+
+- Recent and pinned offline asset trees
+- Offline job drafts, meter readings, attachments, and replacement proposals
+- Foreground automatic synchronization, outbox controls, idempotency, and
+  `needs_review` conflict handling
 
 ## Later
 
-- QR code per asset
-- CSV export
-- PDF maintenance reports
-- Parts inventory
-- Vendor and service provider tracking
-- Cost summaries by asset, category, and time period
-- PWA install support
-- Push or email reminders
-- Multi-user workspaces
-- Role-based access control
-- Audit log
-- AWS deployment with managed PostgreSQL and object storage
-
-## Deliberately Deferred
-
-- Full offline-first editing of all records
-- Complex multi-user conflict resolution
-- Enterprise CMMS workflows
-- Inventory procurement
-- Accounting integrations
+- Granular workspace roles and permissions
+- Public and private schedule catalogs, imports, and sharing
+- QR codes, CSV export, PDF reports, and buyer-facing report sharing
+- Parts inventory, purchasing, procurement, and accounting integrations
+- Push notifications, installable PWA support, and stronger background sync
+- Advanced facility locations, maps, capacity, and geofencing
+- Sensor integrations, adaptive maintenance indicators, and prediction
+- React Native client and broader enterprise CMMS workflows

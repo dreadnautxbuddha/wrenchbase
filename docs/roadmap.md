@@ -20,6 +20,9 @@ The implementation details for the first milestone are captured in the
 
 ## MVP 1: Workspace and Asset Foundation
 
+The delivery decisions and internal slices for this milestone are captured in
+the [MVP 1 implementation plan](mvp-1-implementation-plan.md).
+
 - Owner-sent invitations and owner/member administration using
   capability-based authorization
 - Expanded workspace settings, sites, and nested locations

@@ -25,14 +25,19 @@ attachments, offline synchronization, email, or production hosting hardening.
   `wrenchbase` realm and two verified development users.
 - Configure a public web client for Authorization Code with PKCE (S256), with
   implicit and password/direct-access grants disabled.
-- Use `oidc-client-ts` with `react-oidc-context`; keep the OIDC user and tokens
-  in `sessionStorage`, request `openid profile email`, renew tokens, and use
-  provider logout. Remove callback parameters from the URL after sign-in.
+- Use `oidc-client-ts` with `react-oidc-context`; configure both its user store
+  and authorization-request state store to use `sessionStorage`, request
+  `openid profile email`, renew tokens, and use provider logout. Remove callback
+  parameters from the URL after sign-in.
+- Map `email` and `email_verified` into Keycloak access tokens and cover the
+  mapping with an authentication integration test; do not rely on ID-token-only
+  claims for API provisioning.
 - Keep the production issuer configurable. The API remains provider-neutral.
 - Use Symfony's built-in `OidcTokenHandler` with discovery, cached JWKS,
   issuer/audience/expiry validation, and `sub` as the external identity key.
-  Add `web-token/jwt-library`, `symfony/cache`, `symfony/intl`, and the GMP PHP
-  extension as required dependencies.
+  Add `web-token/jwt-library`, `symfony/cache`, and `symfony/intl`; declare
+  `ext-intl` and `ext-gmp` as Composer platform requirements and install both
+  PHP extensions in the API image.
 - Require a provider-verified email. Persist `(issuer, subject)` as the stable
   external identity and synchronize verified email, display name, and an
   optional avatar without storing access or refresh tokens.
@@ -70,9 +75,11 @@ and serialized as canonical lowercase UUID strings. Store them in PostgreSQL's
 native `uuid` type.
 
 Use cursor pagination for workspace collections with `page[after]` and
-`page[size]`, default size 25, maximum size 100, and stable sorting by
-normalized workspace name and UUID. Do not implement `include`, sparse
-fieldsets, arbitrary filtering, or arbitrary sorting in MVP 0.
+`page[size]`, default size 25, maximum size 100, and stable sorting by immutable
+creation instant and UUID. Cursors are opaque to clients. Do not implement
+`include`, sparse fieldsets, arbitrary filtering, or arbitrary sorting in MVP
+0; reject unsupported query parameters with a `400` JSON:API error instead of
+silently ignoring them.
 
 Return stable JSON:API error codes for invalid tokens, missing verified email,
 validation failures, authorization failures, unsupported media, unsupported
@@ -81,10 +88,16 @@ for field errors and a correlation ID in the response header and error metadata.
 
 ## Concurrency and idempotency
 
-- Workspace responses include a strong `ETag` matching the opaque resource
-  revision in metadata.
+- Workspace responses include an opaque resource revision in metadata and a
+  strong, representation-specific `ETag`. Because role and capabilities are
+  caller-specific, derive the ETag from the workspace revision, the caller's
+  membership revision, and the actor identifier; do not reuse one ETag for
+  different representations.
 - `PATCH` requires `If-Match`. Return `428` when it is missing, `412` when it
-  is stale, and `409` for a valid command that conflicts with domain state.
+  no longer matches the caller's current representation, and `409` for a valid
+  command that conflicts with domain state. After authorization and ETag
+  validation, apply the workspace resource revision as the persistence
+  compare-and-swap value.
 - `POST /workspaces` requires a frontend-generated UUID in `Idempotency-Key`.
 - Store the actor, optional workspace, key, operation, SHA-256 request
   fingerprint, successful status, JSON response, completion time, and fixed
@@ -138,6 +151,12 @@ JSON:API parsing. Keep Next.js delivery files thin. Persist only the last
 selected workspace UUID in `localStorage`; meaningful server data, drafts, and
 tokens do not use `localStorage`.
 
+Authenticated MVP 0 routes are client-composed because bearer tokens exist only
+in browser `sessionStorage`. Do not perform authenticated API prefetching in
+Server Components or copy bearer tokens into cookies. A later delivery-specific
+session or backend-for-frontend design requires a separate architecture
+decision.
+
 The HTTP adapter attaches bearer and JSON:API headers, validates responses,
 maps JSON:API errors to presentation states, exposes ETags to the update use
 case, and reuses one idempotency key across retries. On a `412`, preserve the
@@ -148,10 +167,11 @@ and exposed `ETag`, `Location`, and correlation headers.
 
 ## Testing and CI
 
-API tests cover OIDC validation and provisioning, verified-email enforcement,
-workspace ownership and capabilities, cross-workspace `404` behavior, owner
-updates, member rejection, revision statuses, idempotency replay and misuse,
-JSON:API documents, and audit events.
+API tests cover OIDC validation and provisioning, access-token email claim
+mapping, verified-email enforcement, workspace ownership and capabilities,
+cross-workspace `404` behavior, owner updates, member rejection, revision
+statuses, idempotency replay and misuse, caller-specific ETags, unsupported
+JSON:API queries, JSON:API documents, and audit events.
 
 Web tests cover authentication routing, onboarding, workspace switching,
 capability-driven controls, JSON:API parsing, retry key reuse, stale-edit

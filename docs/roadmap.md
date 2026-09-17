@@ -9,20 +9,20 @@ The implementation details for the first milestone are captured in the
 
 ## MVP 0: Delivery and Contract Foundation
 
-- Provider-neutral OpenID Connect authentication, multi-workspace switching,
-  owner-sent invitations, and capability-based tenancy enforcement
-- Versioned API conventions, semantic error responses, cursor pagination,
-  concurrency, idempotency, and signed attachment uploads
-- Portable production Docker Compose deployment, CI checks, observability,
-  backup and restore runbooks, plus an AWS ECS/Fargate reference deployment
-- Mobile-first navigation, accessibility, loading, error, and offline UX
-  foundations
+- Provider-neutral OpenID Connect authentication, workspace onboarding,
+  multi-workspace switching, and capability-based tenancy enforcement
+- Versioned JSON:API conventions, semantic errors, cursor pagination,
+  optimistic concurrency, and persisted idempotency results
+- Shared-table PostgreSQL tenancy foundations, audit events, and a restricted
+  application database role ready for defense-in-depth row-level security
+- Mobile-first workspace navigation, accessibility, complete loading and error
+  states, CI checks, and a real-stack browser golden path
 
 ## MVP 1: Workspace and Asset Foundation
 
-- Authentication, private workspaces, owner and member roles, and
+- Owner-sent invitations and owner/member administration using
   capability-based authorization
-- Workspace settings, member management, sites, and nested locations
+- Expanded workspace settings, sites, and nested locations
 - Versioned asset types with typed attributes, meters, and component roles
 - Concrete assets, recursive installation history, placement, movement,
   retirement, disposal, and restorable trash
@@ -43,6 +43,7 @@ The implementation details for the first milestone are captured in the
   completions, including on-site ad-hoc work
 - Maintainers, work locations, costs, attachments, inspection outcomes, and
   follow-up maintenance needs
+- Private object storage with authorized signed attachment uploads and downloads
 - Atomic component replacement and lifecycle reporting
 
 ## MVP 4: Awareness and Reporting
@@ -59,6 +60,12 @@ The implementation details for the first milestone are captured in the
 - Offline job drafts, meter readings, attachments, and replacement proposals
 - Foreground automatic synchronization, outbox controls, idempotency, and
   `needs_review` conflict handling
+
+## MVP 6: Production Readiness
+
+- Portable production Docker Compose packaging, observability, health checks,
+  and tested backup and restore runbooks
+- Release checks and an AWS ECS/Fargate reference deployment
 
 ## Later
 

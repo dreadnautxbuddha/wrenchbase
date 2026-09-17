@@ -4,6 +4,9 @@ This roadmap delivers one coherent MVP through capability milestones. Each
 milestone should remain useful on its own while preserving the product rules in
 the [product requirements](product-requirements.md).
 
+The implementation details for the first milestone are captured in the
+[MVP 0 implementation plan](mvp-0-implementation-plan.md).
+
 ## MVP 0: Delivery and Contract Foundation
 
 - Provider-neutral OpenID Connect authentication, multi-workspace switching,

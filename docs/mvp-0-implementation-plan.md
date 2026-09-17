@@ -3,6 +3,9 @@
 This plan turns the product requirements, architecture, and roadmap into the
 first implementation slice. The product requirements remain authoritative for
 domain behavior; this document records the decisions made for MVP 0 delivery.
+The [MVP 0 UI/UX plan](mvp-0-ui-ux-plan.md) defines the browser information
+architecture, responsive layouts, interaction states, and accessibility
+behavior for this slice.
 
 ## Goal and completion criteria
 

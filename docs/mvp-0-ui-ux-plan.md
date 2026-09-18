@@ -317,9 +317,10 @@ collection. Prefer concrete actions such as Create workspace, Edit settings,
 Try again, and Sign out. Avoid enterprise administration language when a
 simpler phrase is accurate.
 
-Low-fidelity review does not settle brand colors, typography, illustration, or
-component styling. Record those decisions separately in the visual-design
-proposal, and establish only the tokens required by implemented screens before
+The low-fidelity review settled structure rather than appearance. The approved
+[MVP 0 visual design](mvp-0-visual-design.md) now defines the colors,
+typography, component styling, centralized token boundary, and accessibility
+standard. Establish only the tokens required by implemented screens before
 evolving the system with the product.
 
 ## Wireframe review set

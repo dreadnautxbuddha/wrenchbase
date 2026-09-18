@@ -502,9 +502,120 @@ choices against the real stack.
 **Excluded:** Automatic field merging, offline editing, invitations, and
 expanded MVP 1 workspace settings.
 
-## Package 10: Real-stack golden path and milestone hardening
+## Package 10: Browser localization hardening
 
 **Prerequisites:** Packages 1 through 9.
+
+**Outcome:** Every user-facing MVP 0 browser message is delivered through a
+tested localization boundary and translated for the UI languages declared as
+supported for the milestone.
+
+### Scope
+
+- Define and document the supported MVP 0 UI languages, language-selection
+  behavior, and fallback order. Do not silently treat a workspace's data locale
+  as the signed-in user's interface language.
+- Move all user-facing browser copy, including validation, authentication,
+  empty, loading, network, authorization, not-found, and stale-edit messages,
+  into translation catalogs with stable semantic keys.
+- Translate the complete catalog for every UI language declared as supported;
+  do not ship a partially translated route or silently fall back for missing
+  keys in a supported catalog.
+- Keep interpolation typed and safe for workspace names, display names,
+  correlation IDs, and other dynamic values. Preserve accessible names, live
+  announcements, error associations, and focus behavior in every translation.
+- Add tests for language selection, fallback behavior, catalog completeness,
+  interpolation, and representative narrow-layout and assistive-technology
+  behavior with translated copy.
+- Reconcile setup and product documentation with the supported language list
+  and explain the distinction between interface language, workspace locale,
+  and default currency.
+
+### Acceptance
+
+- No MVP 0 presentation component or delivery route contains hard-coded
+  user-facing prose outside the localization boundary.
+- Every supported catalog has the same complete key set and failures identify
+  missing or unused entries during normal web checks.
+- Unsupported browser preferences resolve predictably to the documented
+  fallback without changing workspace data.
+- Translated text remains usable at 320 pixels, 200 percent zoom, by keyboard,
+  and with representative screen-reader output.
+
+### Verify
+
+```shell
+make web-test
+make web-check
+```
+
+Exercise every MVP 0 route in each supported UI language, including error and
+stale-edit recovery states.
+
+**Commit:** `feat(web): localize the MVP 0 browser experience`
+
+**Excluded:** Translating API machine codes, inferring interface language from
+workspace settings, and adding post-MVP 0 product copy.
+
+## Package 11: Readable source and file-size hardening
+
+**Prerequisites:** Package 10.
+
+**Outcome:** Manually authored MVP 0 source stays modular and reviewable, with
+no file exceeding 120 lines and no source minification used to satisfy the
+limit.
+
+### Scope
+
+- Audit manually authored API, browser, test, configuration, and repository
+  script source, then refactor files over 120 physical lines along existing
+  capability and architecture boundaries.
+- Add an automated repository check that fails when an in-scope manually
+  authored source file exceeds 120 physical lines. Document narrow exclusions
+  for generated code, dependency and lock files, migrations, fixtures, and
+  build artifacts rather than weakening the limit for ordinary source.
+- Keep normal formatter output and one logical statement or JSX structure per
+  readable line. Never meet the line limit by collapsing imports, statements,
+  arrays, objects, markup, tests, or configuration into dense lines.
+- Ensure minified bundles and other generated build output remain uncommitted.
+  Production optimization may minify build artifacts, but committed source and
+  test code must remain human-readable.
+- Preserve behavior and test coverage while extracting cohesive modules; do
+  not introduce speculative layers or change public contracts as part of the
+  cleanup.
+- Include the size and readability check in the root quality workflow so the
+  constraints cannot regress after MVP 0.
+
+### Acceptance
+
+- Every in-scope manually authored source file is at most 120 physical lines,
+  and an over-limit fixture proves the automated check fails.
+- No committed source is minified or mechanically compressed to pass the line
+  limit, and normal project formatters still succeed.
+- Existing API, browser, and end-to-end behavior remains unchanged.
+- The root quality workflow runs the new guard automatically.
+
+### Verify
+
+```shell
+make api-qa
+make web-test
+make web-check
+make check
+```
+
+Inspect the resulting modules for cohesive responsibilities and confirm no
+generated or minified build output is tracked.
+
+**Commit:** `refactor(project): enforce readable source boundaries`
+
+**Excluded:** Rewriting working features, changing API contracts, or applying
+the line limit to third-party, generated, lock, migration, fixture, or build
+artifact files.
+
+## Package 12: Real-stack golden path and milestone hardening
+
+**Prerequisites:** Packages 1 through 11.
 
 **Outcome:** One automated browser path proves the complete MVP 0 stack and all
 documented completion criteria are verified.

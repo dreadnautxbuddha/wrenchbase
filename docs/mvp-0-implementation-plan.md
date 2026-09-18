@@ -9,6 +9,10 @@ behavior for this slice.
 The approved [MVP 0 visual design](mvp-0-visual-design.md) defines the styling
 tokens, shared component treatment, and accessibility standard. These are MVP 0
 implementation and completion requirements.
+The [MVP 0 engineering standards hardening plan](mvp-0-engineering-standards-plan.md)
+defines the backend and browser coding rules, architecture checks, documentation
+requirements, and local and CI quality gates that must be established before
+workspace capability development continues.
 The [MVP 0 delivery runbook](mvp-0-delivery-runbook.md) divides this plan into
 bounded implementation packages with verification and review stops.
 
@@ -175,6 +179,25 @@ and exposed `ETag`, `Location`, and correlation headers.
 
 ## Testing and CI
 
+Before workspace capability development, harden the shared engineering
+foundation. Enforce Symfony's published PHP coding standard, strict types,
+PHPStan at maximum level, the Clean Architecture dependency direction, PHPUnit
+Given/When/Then names, and a hard 120-character PHP source-line limit.
+
+For JavaScript and TypeScript, add deterministic formatting, a hard
+120-character source-line limit, type-aware strict linting, promise and
+control-flow safety, naming and import-boundary rules, and complete JSDoc for
+class properties whose type is not self-evident. JavaScript property docs carry
+`@type`; TypeScript uses an explicit type annotation and a non-duplicating
+descriptive JSDoc block.
+
+Make the root Make targets the public quality interface. API QA includes
+Composer validation, formatting, dependency analysis, PHPStan, test-name
+validation, and PHPUnit. Web checks include formatting, zero-warning ESLint,
+TypeScript, Vitest, and a deterministic production build. The pre-commit hook
+covers both applications without launching the later Playwright suite, while
+CI runs the complete `make check` gate.
+
 API tests cover OIDC validation and provisioning, access-token email claim
 mapping, verified-email enforcement, workspace ownership and capabilities,
 cross-workspace `404` behavior, owner updates, member rejection, revision
@@ -205,8 +228,9 @@ workflow for pull requests and pushes to `master`.
 1. `docs(project): define the MVP 0 walking skeleton`
 2. `chore(test): establish web tests and GitHub Actions`
 3. `feat(auth): add provider-neutral OIDC authentication`
-4. `feat(workspaces): deliver workspace onboarding and tenancy`
-5. `test(e2e): cover the authenticated workspace golden path`
+4. `chore(project): enforce engineering standards`
+5. `feat(workspaces): deliver workspace onboarding and tenancy`
+6. `test(e2e): cover the authenticated workspace golden path`
 
 Each commit includes directly related tests, passes the relevant checks, and
 updates the affected client and contract together.

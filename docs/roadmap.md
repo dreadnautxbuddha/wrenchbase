@@ -17,6 +17,9 @@ the bounded packages in the
   optimistic concurrency, and persisted idempotency results
 - Shared-table PostgreSQL tenancy foundations, audit events, and a restricted
   application database role ready for defense-in-depth row-level security
+- Enforced Symfony and strict TypeScript coding standards, 120-character source
+  lines, documented class-property types, architecture dependency checks, and
+  matching local and CI quality gates
 - Mobile-first workspace navigation, accessibility, complete loading and error
   states, CI checks, and a real-stack browser golden path
 

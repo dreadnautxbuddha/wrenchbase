@@ -234,9 +234,93 @@ token-validation tests.
 **Excluded:** Workspace persistence, membership authorization, and browser
 authentication.
 
-## Package 5: Workspace read and creation API
+## Package 5: Engineering standards hardening
 
 **Prerequisites:** Package 4.
+
+**Outcome:** API and browser work share deterministic coding standards,
+enforced architecture boundaries, and matching local and CI quality gates
+before the workspace capabilities expand the codebase.
+
+### Source documents
+
+- [Engineering standards hardening plan](mvp-0-engineering-standards-plan.md)
+- [Architecture](architecture.md)
+- [Contribution standards](../CONTRIBUTING.md)
+- Root, API, and web `AGENTS.md` files
+
+### Scope
+
+- Make `CONTRIBUTING.md` the canonical coding, testing, quality-command,
+  documentation, and commit reference. Remove drift between it and the three
+  instruction files while retaining application-specific boundaries.
+- Add the security and UX/accessibility required-reading triggers defined by
+  the engineering standards plan.
+- Consolidate EditorConfig behavior at the repository root with explicit PHP,
+  web, YAML, Markdown, and Makefile overrides.
+- Enforce Symfony's published PHP coding standard, strict types, a hard
+  120-character source-line limit, the prescribed naming and condition
+  ordering, and the existing PHPStan maximum level.
+- Add a backend dependency check for the documented
+  `Infrastructure -> Application -> Domain` direction, with fixtures that prove
+  a forbidden dependency fails.
+- Add Prettier with Tailwind support, a hard 120-character ESLint rule,
+  type-aware strict and stylistic TypeScript rules, promise and control-flow
+  safety, naming rules, and architecture import restrictions.
+- Require complete JSDoc for non-obvious class properties: JavaScript uses a
+  description and `@type`; TypeScript uses an explicit type annotation and a
+  description without duplicating the type tag. Cover the condition with
+  passing and failing lint fixtures.
+- Correct starter source placement and existing PHPUnit method names that
+  predate the documented architecture and Given/When/Then convention.
+- Make lint warnings fatal and add a deterministic Next.js production build to
+  the web gate.
+- Align Composer, GrumPHP, npm, Make, the pre-commit hook, CI, and contributor
+  documentation around the canonical root commands. Keep Playwright out of the
+  fast pre-commit gate.
+
+### Acceptance
+
+- A 121-character maintained PHP or JS/TS source line fails the relevant
+  quality command.
+- Representative Symfony naming, comparison-order, and early-return violations
+  fail API QA.
+- Representative backend and frontend inward-dependency violations fail their
+  application checks.
+- A non-obvious class property without the required type information and JSDoc
+  description fails web linting.
+- PHP formatting, dependency analysis, PHPStan, PHPUnit naming, and PHPUnit
+  behavior are all included in `make api-qa`.
+- Web formatting, zero-warning linting, type checking, Vitest, and a production
+  build are all included in `make web-check`.
+- `make pre-commit` covers both applications without launching Playwright, and
+  CI continues to run the same `make check` available to contributors.
+- Existing application behavior and public contracts do not change.
+
+### Verify
+
+```shell
+make api-qa
+make web-test
+make web-check
+make pre-commit
+make check
+docker compose config --quiet
+git diff --check
+```
+
+Run each negative standards fixture once and confirm the intended gate rejects
+it before restoring the fixture and confirming the clean repository passes.
+
+**Commit:** `chore(project): enforce engineering standards`
+
+**Excluded:** Product behavior, API contract changes, coverage percentages,
+Playwright, the later 120-physical-lines-per-file rule, and speculative
+architectural layers.
+
+## Package 6: Workspace read and creation API
+
+**Prerequisites:** Package 5.
 
 **Outcome:** An authenticated user can create, list, and read isolated
 workspaces through the documented API contract.
@@ -288,9 +372,9 @@ tokens from the local issuer.
 **Excluded:** Workspace updates, invitations, member administration, sites,
 and RLS for future tenant-owned domain tables.
 
-## Package 6: Browser authentication and onboarding
+## Package 7: Browser authentication and onboarding
 
-**Prerequisites:** Packages 2, 4, and 5.
+**Prerequisites:** Packages 2, 4, and 6.
 
 **Outcome:** A browser user can sign in through the configured issuer, load the
 Wrenchbase session, reach onboarding when they have no workspace, and sign out
@@ -345,9 +429,9 @@ stack at narrow and desktop viewports.
 **Excluded:** Workspace creation UI, workspace switching, settings, and stale
 edit recovery.
 
-## Package 7: Workspace creation, overview, and switching
+## Package 8: Workspace creation, overview, and switching
 
-**Prerequisites:** Package 6.
+**Prerequisites:** Package 7.
 
 **Outcome:** An authenticated user can create a workspace, see its overview,
 and switch between explicit workspace routes.
@@ -400,9 +484,9 @@ development users.
 **Excluded:** Workspace editing, invitations, membership management, and asset
 navigation.
 
-## Package 8: Workspace update and concurrency API
+## Package 9: Workspace update and concurrency API
 
-**Prerequisites:** Package 5.
+**Prerequisites:** Package 6.
 
 **Outcome:** Authorized owners can update workspace settings with
 representation-specific optimistic concurrency and complete audit history.
@@ -449,9 +533,9 @@ confirm exactly one succeeds.
 **Excluded:** Browser settings UI, automatic conflict merging, invitations,
 and membership administration.
 
-## Package 9: Workspace settings and stale-edit recovery
+## Package 10: Workspace settings and stale-edit recovery
 
-**Prerequisites:** Packages 7 and 8.
+**Prerequisites:** Packages 8 and 9.
 
 **Outcome:** Authorized owners can edit workspace settings, and stale edits are
 preserved for explicit comparison and resubmission.
@@ -502,9 +586,9 @@ choices against the real stack.
 **Excluded:** Automatic field merging, offline editing, invitations, and
 expanded MVP 1 workspace settings.
 
-## Package 10: Browser localization hardening
+## Package 11: Browser localization hardening
 
-**Prerequisites:** Packages 1 through 9.
+**Prerequisites:** Packages 1 through 10.
 
 **Outcome:** Every user-facing MVP 0 browser message is delivered through a
 tested localization boundary and translated for the UI languages declared as
@@ -557,9 +641,9 @@ stale-edit recovery states.
 **Excluded:** Translating API machine codes, inferring interface language from
 workspace settings, and adding post-MVP 0 product copy.
 
-## Package 11: Readable source and file-size hardening
+## Package 12: Readable source and file-size hardening
 
-**Prerequisites:** Package 10.
+**Prerequisites:** Package 11.
 
 **Outcome:** Manually authored MVP 0 source stays modular and reviewable, with
 no file exceeding 120 lines and no source minification used to satisfy the
@@ -613,9 +697,9 @@ generated or minified build output is tracked.
 the line limit to third-party, generated, lock, migration, fixture, or build
 artifact files.
 
-## Package 12: Real-stack golden path and milestone hardening
+## Package 13: Real-stack golden path and milestone hardening
 
-**Prerequisites:** Packages 1 through 11.
+**Prerequisites:** Packages 1 through 12.
 
 **Outcome:** One automated browser path proves the complete MVP 0 stack and all
 documented completion criteria are verified.

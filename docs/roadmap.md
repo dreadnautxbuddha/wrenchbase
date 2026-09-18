@@ -5,7 +5,9 @@ milestone should remain useful on its own while preserving the product rules in
 the [product requirements](product-requirements.md).
 
 The implementation details for the first milestone are captured in the
-[MVP 0 implementation plan](mvp-0-implementation-plan.md).
+[MVP 0 implementation plan](mvp-0-implementation-plan.md). Execute it through
+the bounded packages in the
+[MVP 0 delivery runbook](mvp-0-delivery-runbook.md).
 
 ## MVP 0: Delivery and Contract Foundation
 

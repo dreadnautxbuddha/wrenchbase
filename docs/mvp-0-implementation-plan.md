@@ -9,6 +9,8 @@ behavior for this slice.
 The approved [MVP 0 visual design](mvp-0-visual-design.md) defines the styling
 tokens, shared component treatment, and accessibility standard. These are MVP 0
 implementation and completion requirements.
+The [MVP 0 delivery runbook](mvp-0-delivery-runbook.md) divides this plan into
+bounded implementation packages with verification and review stops.
 
 ## Goal and completion criteria
 

@@ -7,6 +7,10 @@ states, and accessibility behavior for the browser workflows in the
 source for experience principles; this document makes those principles
 implementable for MVP 0.
 
+The [MVP 0 visual-design proposal](mvp-0-visual-design.md) applies a reviewable
+sky-blue, playful, large-type direction to this structure. Layout approval does
+not by itself approve those visual-design details.
+
 ## Design objective
 
 MVP 0 should make authentication and workspace context feel trustworthy,
@@ -313,12 +317,10 @@ collection. Prefer concrete actions such as Create workspace, Edit settings,
 Try again, and Sign out. Avoid enterprise administration language when a
 simpler phrase is accurate.
 
-The initial visual direction is practical and quiet: strong contrast,
-comfortable spacing, restrained surfaces, and one consistent action emphasis.
-Low-fidelity review should not settle brand colors, illustration style, or a
-large design-token system. Establish only the typography, spacing, color, and
-focus tokens required by the implemented screens, then evolve them with the
-product.
+Low-fidelity review does not settle brand colors, typography, illustration, or
+component styling. Record those decisions separately in the visual-design
+proposal, and establish only the tokens required by implemented screens before
+evolving the system with the product.
 
 ## Wireframe review set
 

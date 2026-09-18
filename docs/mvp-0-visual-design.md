@@ -2,10 +2,11 @@
 
 ## Status
 
-This document is a review draft. It translates the approved MVP 0 layout and
-interaction flow into a proposed visual system. The
-[MVP 0 UI/UX plan](mvp-0-ui-ux-plan.md) remains authoritative for screen
-structure and behavior until this direction is approved.
+This visual direction is approved for MVP 0. It translates the approved layout
+and interaction flow into the visual system that implementation must follow.
+The [MVP 0 UI/UX plan](mvp-0-ui-ux-plan.md) remains authoritative for screen
+structure and behavior; this document is authoritative for presentation,
+design tokens, and shared visual components.
 
 ## Intent
 
@@ -252,6 +253,18 @@ Tailwind CSS 4 is already installed. Define the semantic tokens in
 uses semantic utilities rather than raw palette utilities wherever the design
 meaning matters.
 
+Treat the token layer and shared presentation primitives as the single source
+of truth for styling. Repeated colors, typography, spacing, radii, shadows,
+focus treatment, and interaction states must not be redefined inside feature
+screens. Feature components compose the shared primitives and may add layout
+styles specific to their content, but they do not create competing button,
+field, alert, menu, badge, or surface systems.
+
+Keep shared styling close to the browser application rather than publishing a
+premature cross-client package. The future React Native client can share the
+semantic vocabulary without being forced to consume CSS or Tailwind-specific
+implementation.
+
 Keep the initial token set small:
 
 - canvas, surface, soft surface, and floating surface;
@@ -265,6 +278,33 @@ Do not add a third-party component kit in MVP 0. Build the small set of required
 accessible primitives with native controls, React, and Tailwind. Add an icon
 package only when implementation reaches a screen that uses it.
 
+## Accessibility standard
+
+Accessibility is a completion requirement, not a later styling pass. Target
+WCAG 2.2 AA for MVP 0 and prefer robust native browser behavior over custom
+interaction code.
+
+- Use semantic landmarks, headings, links, buttons, labels, and form controls.
+- Ensure the complete workflow works by keyboard with a logical focus order,
+  visible focus, no keyboard traps, and focus restoration for menus and
+  dialogs.
+- Give every input an accessible name and programmatically associate help and
+  error text. After failed submission, move focus to an error summary when it
+  is present without erasing entered values.
+- Announce asynchronous progress, success, and failure when a visible update
+  alone would not be discovered by assistive technology.
+- Preserve meaning without color, motion, hover, fine pointer accuracy, or
+  icon recognition.
+- Support text zoom to 200 percent and reflow at a 320-pixel CSS viewport
+  without horizontal scrolling in ordinary page content.
+- Meet the specified contrast and touch-target requirements in every state,
+  including focus, hover, disabled, busy, validation, and conflict states.
+- Honor operating-system reduced-motion and color-scheme preferences.
+
+Automated accessibility checks protect common semantics and contrast, but do
+not replace manual keyboard, zoom/reflow, and screen-reader checks of the
+critical sign-in, onboarding, workspace, and stale-edit flows.
+
 ## Non-goals
 
 - gamification mechanics;
@@ -275,9 +315,9 @@ package only when implementation reaches a screen that uses it.
 - dense data tables; and
 - decorative animation unrelated to user actions.
 
-## Review criteria
+## Acceptance criteria
 
-Approve this direction only when the styled wireframes demonstrate that:
+The implementation is ready when it demonstrates that:
 
 - a non-technical user can identify the primary action immediately;
 - the interface feels friendly without appearing intended only for children;

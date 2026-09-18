@@ -7,9 +7,9 @@ states, and accessibility behavior for the browser workflows in the
 source for experience principles; this document makes those principles
 implementable for MVP 0.
 
-The [MVP 0 visual-design proposal](mvp-0-visual-design.md) applies a reviewable
-sky-blue, playful, large-type direction to this structure. Layout approval does
-not by itself approve those visual-design details.
+The approved [MVP 0 visual design](mvp-0-visual-design.md) applies the sky-blue,
+playful, large-type direction to this structure and defines the centralized
+presentation and accessibility requirements.
 
 ## Design objective
 

@@ -6,9 +6,9 @@ domain behavior; this document records the decisions made for MVP 0 delivery.
 The [MVP 0 UI/UX plan](mvp-0-ui-ux-plan.md) defines the browser information
 architecture, responsive layouts, interaction states, and accessibility
 behavior for this slice.
-The [MVP 0 visual-design proposal](mvp-0-visual-design.md) defines the proposed
-styling tokens and component treatment; it must be approved before those
-details become implementation requirements.
+The approved [MVP 0 visual design](mvp-0-visual-design.md) defines the styling
+tokens, shared component treatment, and accessibility standard. These are MVP 0
+implementation and completion requirements.
 
 ## Goal and completion criteria
 

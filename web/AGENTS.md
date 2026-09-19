@@ -40,7 +40,7 @@ Read the [application boundaries and frontend architecture](../docs/architecture
 - Use TanStack Query for server state.
 - Use component state for simple UI state. Add another client-state library only when React state is no longer practical.
 - Store meaningful offline data in IndexedDB, likely through Dexie. Do not use `localStorage` for offline drafts, queued attachments, or other durable application data.
-- Keep asset type, asset attribute, and maintenance plan changes online-only in v1.
+- Keep asset type, asset attribute, and maintenance schedule changes online-only in v1.
 - Allow offline creation of maintenance job drafts, including queued attachments, but keep edits and deletes of existing records online-only in v1.
 
 ## Testing

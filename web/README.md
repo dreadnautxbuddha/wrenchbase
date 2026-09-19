@@ -1,36 +1,50 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Wrenchbase Web
 
-## Getting Started
+The browser application is Wrenchbase's primary client. It is a mobile-first
+Next.js application that renders API-owned maintenance data and supports scoped
+offline job drafting. The Symfony API remains the source of truth for business
+rules, authorization, validation, due-work calculation, and persistence.
 
-First, run the development server:
+## Development
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+Run the complete containerized stack from the repository root:
+
+```shell
+make up
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+The browser application is available at
+[http://localhost:3000](http://localhost:3000). Run browser checks with:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```shell
+make web-check
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+The root [README](../README.md) documents all development commands. The
+repository's Docker Compose files provide `INTERNAL_API_URL` for server-side
+composition and `NEXT_PUBLIC_API_URL` for browser requests; do not hard-code
+either URL in product code.
 
-## Learn More
+## Architecture
 
-To learn more about Next.js, take a look at the following resources:
+Read the repository [architecture](../docs/architecture.md) and
+[web instructions](AGENTS.md) before changing application structure. Product
+code is organized under `src/features/` by capability. React components and
+TanStack Query hooks call Application boundaries; HTTP, IndexedDB, runtime DTO
+parsing, and browser APIs belong in Infrastructure; browser and server wiring
+belongs in `src/composition/`.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+The active workspace is explicit in product routes and API requests. Components
+must not infer it from local storage or maintain their own copy of server state.
+Use the [API contract](../docs/api-contract.md) and
+[offline synchronization contract](../docs/offline-sync.md) when implementing
+networked or queued behavior.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## User Experience
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Follow the [UX and accessibility brief](../docs/ux-accessibility.md). In
+particular, preserve clear workspace switching, visible offline/sync status,
+usable touch targets, and explicit loading, empty, error, and conflict states.
+Asset and schedule authoring are online-only in v1. Offline support is limited
+to cached reading plus drafting maintenance jobs, readings, attachments, and
+replacement proposals.

@@ -4,6 +4,17 @@ This roadmap delivers one coherent MVP through capability milestones. Each
 milestone should remain useful on its own while preserving the product rules in
 the [product requirements](product-requirements.md).
 
+## MVP 0: Delivery and Contract Foundation
+
+- Provider-neutral OpenID Connect authentication, multi-workspace switching,
+  owner-sent invitations, and capability-based tenancy enforcement
+- Versioned API conventions, semantic error responses, cursor pagination,
+  concurrency, idempotency, and signed attachment uploads
+- Portable production Docker Compose deployment, CI checks, observability,
+  backup and restore runbooks, plus an AWS ECS/Fargate reference deployment
+- Mobile-first navigation, accessibility, loading, error, and offline UX
+  foundations
+
 ## MVP 1: Workspace and Asset Foundation
 
 - Authentication, private workspaces, owner and member roles, and
@@ -26,7 +37,7 @@ the [product requirements](product-requirements.md).
 
 - Planned, active, closed, amended, and voided maintenance jobs
 - Targeted work items, partial completion, assignments, and requirement
-  completions
+  completions, including on-site ad-hoc work
 - Maintainers, work locations, costs, attachments, inspection outcomes, and
   follow-up maintenance needs
 - Atomic component replacement and lifecycle reporting

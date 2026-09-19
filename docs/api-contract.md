@@ -18,34 +18,53 @@ from another workspace is indistinguishable from a missing resource.
 
 ## Requests and Responses
 
-Use JSON request and response bodies with UTF-8 field names in lower camel case.
-Dates use ISO 8601 dates; instants use RFC 3339 UTC timestamps. Monetary
-amounts use integer minor units with an explicit ISO 4217 currency code.
+Use JSON:API 1.1 request, response, and error documents with the
+`application/vnd.api+json` media type. Attribute and relationship field names
+use lower camel case. Dates use ISO 8601 dates; instants use RFC 3339 UTC
+timestamps. Monetary amounts use integer minor units with an explicit ISO 4217
+currency code.
 
-Successful creates return `201 Created` and the created representation. Updates
-and commands return `200 OK` with the resulting read model. Destructive-looking
-domain commands such as retire, dispose, void, and restore return the resulting
-historical state rather than `204 No Content`.
+Successful creates return `201 Created`, a `Location` header, and the created
+resource document. Updates and commands return `200 OK` with the resulting
+resource or read-model document. Destructive-looking domain commands such as
+retire, dispose, void, and restore return the resulting historical state rather
+than `204 No Content`.
 
 Collections use opaque cursor pagination. Clients may request a documented,
-bounded page size and pass the server-supplied `nextCursor`; filtering and sort
-options are capability-specific. New optional response fields are compatible;
-renaming, removing, or changing the meaning of a field requires a new API
-version.
+bounded `page[size]` and pass the server-supplied cursor through `page[after]`.
+Collection documents expose the next page through a JSON:API `links.next` URL.
+Each collection documents an immutable, deterministic cursor order; mutable
+display fields are not cursor keys. Filtering, inclusion, sparse fieldsets, and
+sorting are capability-specific. An unsupported query parameter returns `400`
+with a stable JSON:API error code rather than being ignored. New optional
+response fields are compatible; renaming, removing, or changing the meaning of
+a field requires a new API version.
 
 ## Errors, Concurrency, and Idempotency
 
-Errors use `application/problem+json` with RFC 9457 fields plus a stable
-`code`, optional `fieldErrors`, and a correlation ID. The API uses `400` for a
-malformed request, `401` for an invalid or missing token, `403` for a known but
-unauthorized workspace action, `404` for an unavailable scoped resource, `409`
-for a current-state conflict, and `422` for a valid request that violates domain
-or validation rules.
+Errors use JSON:API error objects with `status`, a stable `code`, `title`, and
+safe `detail`. Field-specific errors use a JSON Pointer in `source.pointer`.
+Every error response includes a correlation ID in both a response header and
+error metadata. The API uses `400` for a malformed request or unsupported query,
+`401` for an invalid or missing token, `403` for a known but unauthorized
+workspace action, `404` for an unavailable scoped resource, `409` for a
+current-state conflict, `412` for a stale precondition, `415` for unsupported
+media, `422` for a well-formed request that violates validation or domain rules,
+and `428` when a required precondition is missing.
 
-Mutable representations include an opaque `revision`. A command that depends on
-the current state supplies that revision through `If-Match`; a stale revision
-returns `409` with a semantic conflict code and the current representation or a
-safe conflict summary. Clients must not retry semantic conflicts blindly.
+Mutable resource metadata includes an opaque resource `revision`. Responses also
+include a strong `ETag` for the exact representation. When a representation
+contains caller-specific access metadata, its ETag incorporates the resource
+revision, caller membership revision, and actor identifier; different
+representations must not share a strong ETag.
+
+A command that depends on the current state supplies the ETag through
+`If-Match`. A missing precondition returns `428`; a precondition that no longer
+matches the caller's current representation returns `412`. After authorization
+and precondition validation, the API uses the resource revision for persistence
+compare-and-swap. A command based on current state that conflicts for another
+domain reason returns `409` with a semantic error code and a safe conflict
+summary. Clients must not retry `409` or `412` responses blindly.
 
 Every create or publish command accepts an `Idempotency-Key` UUID. The API
 stores the key, workspace, authenticated user, request fingerprint, and result

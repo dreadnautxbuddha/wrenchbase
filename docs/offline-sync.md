@@ -2,8 +2,8 @@
 
 Offline support is intentionally limited to cached asset-tree reading and new
 maintenance job drafts, readings, attachments, and replacement proposals. The
-[product requirements](product-requirements.md) define which work is allowed;
-this document defines how it reaches the API.
+[canonical PRD](../_bmad-output/planning-artifacts/prds/prd-wrenchbase-2026-09-21/prd.md)
+defines which work is allowed; this document defines how it reaches the API.
 
 ## Local Outbox
 

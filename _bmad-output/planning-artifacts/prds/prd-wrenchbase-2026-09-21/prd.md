@@ -1,9 +1,10 @@
 ---
 title: Wrenchbase Canonical Product Requirements Document
 status: final
-approval: pending
+approval: approved
+approved: 2026-09-22
 created: 2026-09-21
-updated: 2026-09-21
+updated: 2026-09-22
 ---
 
 # PRD: Wrenchbase

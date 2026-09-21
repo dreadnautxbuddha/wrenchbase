@@ -1,9 +1,11 @@
 # MVP 0 Delivery Runbook
 
-This runbook turns the [MVP 0 implementation plan](mvp-0-implementation-plan.md)
+This runbook turns the
+[canonical PRD's MVP 0 scope](../_bmad-output/planning-artifacts/prds/prd-wrenchbase-2026-09-21/prd.md#mvp-0-delivery-and-contract-foundation)
+and its [contract and delivery context](../_bmad-output/planning-artifacts/prds/prd-wrenchbase-2026-09-21/addendum.md#2-mvp-0-contract-and-delivery-context)
 into bounded implementation packages. It controls delivery order and review
-stops; it does not replace the product requirements, architecture, API
-contract, UI/UX plan, or visual design.
+stops; it does not replace the canonical PRD, architecture, API contract,
+UI/UX plan, or visual design.
 
 Use this runbook when handing one package at a time to an implementation agent.
 Do not ask an agent to implement the whole milestone in one pass.

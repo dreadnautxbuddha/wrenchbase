@@ -2,7 +2,8 @@
 
 This plan defines the information architecture, responsive layout, interaction
 states, and accessibility behavior for the browser workflows in the
-[MVP 0 implementation plan](mvp-0-implementation-plan.md). The
+[canonical PRD's MVP 0 scope](../_bmad-output/planning-artifacts/prds/prd-wrenchbase-2026-09-21/prd.md#mvp-0-delivery-and-contract-foundation)
+and its [contract and delivery context](../_bmad-output/planning-artifacts/prds/prd-wrenchbase-2026-09-21/addendum.md#2-mvp-0-contract-and-delivery-context). The
 [UX and accessibility brief](ux-accessibility.md) remains the product-wide
 source for experience principles; this document makes those principles
 implementable for MVP 0.

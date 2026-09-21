@@ -9,8 +9,8 @@
   narrative remains in the named `extract-*.md` record.
 
 Every heading from the five user-designated sources is accounted for below.
-Coverage does not change source authority until the deletion checkpoint is
-explicitly approved.
+The deletion checkpoint was explicitly approved on 2026-09-22; the canonical
+PRD now governs product behavior.
 
 ## 1. `docs/product-vision.md`
 
@@ -195,39 +195,29 @@ open and are recorded with owners and phase gates in PRD §10:
 7. Product-usefulness targets for Maintenance Schedule setup and next-action
    comprehension.
 
-## 8. Inbound Links Requiring Update After Deletion Approval
+## 8. Completed Inbound Link Migration
 
-The following retained files link to one or more proposed source deletions and
-must be updated in the same later deletion change:
+The following retained files were updated with the approved source deletion:
 
-- `AGENTS.md` lines 14–15 — links to `docs/product-vision.md` and
-  `docs/product-requirements.md`; replace with the canonical PRD and retain the
-  architecture instruction.
-- `README.md` lines 67 and 82–84 — links to product requirements, product
-  vision, and roadmap; replace the planning links with the canonical PRD.
-- `docs/architecture.md` line 175 — links to product requirements; point the
-  normative behavior reference to the canonical PRD.
-- `docs/api-contract.md` line 3 — links to product requirements; point product
-  behavior authority to the canonical PRD.
-- `docs/offline-sync.md` line 5 — links to product requirements; point offline
-  product-scope authority to the canonical PRD.
-- `docs/mvp-0-ui-ux-plan.md` line 5 — links to the MVP 0 implementation plan;
-  point milestone scope to PRD §6 and contract/delivery context to the addendum.
-- `docs/mvp-0-delivery-runbook.md` line 3 — links to the MVP 0 implementation
-  plan; point the runbook's governing scope to PRD §6 and retained delivery
-  context to the addendum.
+- `AGENTS.md` now points product behavior and scope decisions to the canonical
+  PRD while retaining the separate architecture instruction.
+- `README.md` now presents the canonical PRD as the product-behavior authority
+  and current product direction.
+- `docs/architecture.md`, `docs/api-contract.md`, and `docs/offline-sync.md` now
+  point their normative product-behavior references to the canonical PRD.
+- `docs/mvp-0-ui-ux-plan.md` and `docs/mvp-0-delivery-runbook.md` now point to
+  PRD §6 for MVP 0 scope and to the addendum for contract and delivery context.
 
 Links only among files proposed for deletion do not require migration because
 their source and target would be removed together.
 
-## 9. Deletion Approval Checkpoint
+## 9. Completed Source Deletion
 
-Exact source files proposed for deletion after explicit approval:
+The explicit approval checkpoint was accepted on 2026-09-22. These exact source
+files were deleted:
 
 1. `docs/product-vision.md`
 2. `docs/product-requirements.md`
 3. `docs/roadmap.md`
 4. `docs/mvp-0-implementation-plan.md`
 5. `docs/mvp-1-implementation-plan.md`
-
-No source file has been deleted in this run.

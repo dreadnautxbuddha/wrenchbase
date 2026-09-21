@@ -1,5 +1,10 @@
 # Final Reconciliation-Gate Audit — Re-run
 
+> **Post-approval note (2026-09-22):** The user approved this checkpoint. The
+> five audited source files were deleted, and their retained inbound links were
+> migrated to the canonical PRD and addendum. The audit below records the
+> pre-deletion gate that authorized that migration.
+
 ## Verdict
 
 **PASS — ready for the explicit approval checkpoint.**

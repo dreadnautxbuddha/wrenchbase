@@ -36,9 +36,10 @@ Wrenchbase aims to sit in the middle: flexible enough to model vehicles, parts, 
 
 - `api/` contains the Symfony API and its PHPUnit test suite.
 - `web/` contains the Next.js browser application, which is the primary client today.
-- `docs/` contains the product vision, product requirements, architecture,
-  API contract, offline-sync contract, security policy, deployment guide, UX
-  brief, and roadmap.
+- `docs/` contains the architecture, API contract, offline-sync contract,
+  security policy, deployment guide, UX brief, and focused delivery documents.
+- `_bmad-output/planning-artifacts/` contains the canonical PRD and its planning
+  audit trail.
 - `mobile/` is reserved for a future React Native client and does not exist yet.
 
 ## Development
@@ -64,11 +65,12 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for testing, quality, documentation, and 
 
 ## Documentation
 
-The [product requirements](docs/product-requirements.md) are authoritative for
-product behavior. The [architecture](docs/architecture.md) sets code and client
-boundaries. Read the [API contract](docs/api-contract.md) before changing a
-client-visible endpoint, the [offline synchronization contract](docs/offline-sync.md)
-before changing queued work, and the [security and data lifecycle policy](docs/security-and-data-lifecycle.md)
+The [canonical PRD](_bmad-output/planning-artifacts/prds/prd-wrenchbase-2026-09-21/prd.md)
+is authoritative for product behavior. The [architecture](docs/architecture.md)
+sets code and client boundaries. Read the [API contract](docs/api-contract.md)
+before changing a client-visible endpoint, the
+[offline synchronization contract](docs/offline-sync.md) before changing queued
+work, and the [security and data lifecycle policy](docs/security-and-data-lifecycle.md)
 before changing identity, tenancy, or attachments.
 
 Use the [deployment guide](docs/deployment.md) for portable production and AWS
@@ -79,7 +81,5 @@ for browser workflows.
 
 Wrenchbase is currently in early development.
 
-See [the product vision](docs/product-vision.md), the authoritative
-[product requirements](docs/product-requirements.md),
-[the architecture](docs/architecture.md), and [the roadmap](docs/roadmap.md)
-for the current direction.
+See the [canonical PRD](_bmad-output/planning-artifacts/prds/prd-wrenchbase-2026-09-21/prd.md)
+and [architecture](docs/architecture.md) for the current direction.

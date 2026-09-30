@@ -126,7 +126,8 @@ Document and enforce the following baseline:
 - Transactions are owned by an application use case when several persistence
   effects must succeed atomically.
 - Instants are UTC and calendar-only facts remain dates, consistent with the
-  architecture and product requirements.
+  architecture and
+  [canonical PRD](../_bmad-output/planning-artifacts/prds/prd-wrenchbase-2026-09-21/prd.md).
 - New application orchestrators are single-use-case handlers. Generic manager,
   helper, utility, or service classes require a precise capability-oriented
   name and responsibility.

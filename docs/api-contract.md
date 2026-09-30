@@ -1,8 +1,9 @@
 # API Contract
 
-This document defines cross-cutting API behavior. The [product requirements](product-requirements.md)
-remain authoritative for domain behavior; capability documentation and tests
-define each resource's fields and commands.
+This document defines cross-cutting API behavior. The
+[canonical PRD](../_bmad-output/planning-artifacts/prds/prd-wrenchbase-2026-09-21/prd.md)
+is authoritative for domain behavior; capability documentation and tests define
+each resource's fields and commands.
 
 ## Versioning and Authentication
 

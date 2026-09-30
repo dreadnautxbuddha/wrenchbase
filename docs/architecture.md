@@ -172,7 +172,7 @@ Do not use Next.js Route Handlers or Server Functions as a second business backe
 Keep core maintenance concepts relational. Flexible values are allowed only where
 the product needs them; they must not replace typed relationships, lifecycle
 history, authorization, or due-work rules. The normative behavior is defined in
-the [product requirements](product-requirements.md).
+the [canonical PRD](../_bmad-output/planning-artifacts/prds/prd-wrenchbase-2026-09-21/prd.md).
 
 The domain will need relational capabilities for:
 

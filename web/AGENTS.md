@@ -12,7 +12,7 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 
 These instructions supplement the repository-level `AGENTS.md` and take precedence for work in `web/`.
 
-Read the [application boundaries and frontend architecture](../docs/architecture.md) before changing client responsibilities, server-state handling, or offline behavior. Follow the repository [contribution standards](../CONTRIBUTING.md) for tests, quality checks, documentation, and commits.
+Read the [architecture spine](../_bmad-output/planning-artifacts/architecture/architecture-wrenchbase-2026-09-30/ARCHITECTURE-SPINE.md) for shared invariants and the [frontend architecture reference](../docs/architecture.md#frontend-architecture) for browser detail before changing client responsibilities, server-state handling, or offline behavior. Follow the repository [contribution standards](../CONTRIBUTING.md) for tests, quality checks, documentation, and commits.
 
 ## Application Boundaries
 

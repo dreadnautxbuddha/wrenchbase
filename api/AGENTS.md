@@ -2,7 +2,7 @@
 
 These instructions supplement the repository-level `AGENTS.md` and take precedence for work in `api/`.
 
-Read the [backend architecture](../docs/architecture.md#backend-architecture) before changing application structure or dependencies. Follow the repository [contribution standards](../CONTRIBUTING.md) for tests, quality checks, documentation, and commits.
+Read the [architecture spine](../_bmad-output/planning-artifacts/architecture/architecture-wrenchbase-2026-09-30/ARCHITECTURE-SPINE.md) for shared invariants and the [backend architecture reference](../docs/architecture.md#backend-architecture) for API detail before changing application structure or dependencies. Follow the repository [contribution standards](../CONTRIBUTING.md) for tests, quality checks, documentation, and commits.
 
 ## Architecture
 

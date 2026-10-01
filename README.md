@@ -65,21 +65,12 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for testing, quality, documentation, and 
 
 ## Documentation
 
-The [canonical PRD](_bmad-output/planning-artifacts/prds/prd-wrenchbase-2026-09-21/prd.md)
-is authoritative for product behavior. The [architecture](docs/architecture.md)
-sets code and client boundaries. Read the [API contract](docs/api-contract.md)
-before changing a client-visible endpoint, the
-[offline synchronization contract](docs/offline-sync.md) before changing queued
-work, and the [security and data lifecycle policy](docs/security-and-data-lifecycle.md)
-before changing identity, tenancy, or attachments.
+The [canonical PRD](_bmad-output/planning-artifacts/prds/prd-wrenchbase-2026-09-21/prd.md) is authoritative for product behavior. The [architecture spine](_bmad-output/planning-artifacts/architecture/architecture-wrenchbase-2026-09-30/ARCHITECTURE-SPINE.md) governs cross-unit invariants; [docs/architecture.md](docs/architecture.md) remains the detailed architecture reference, with section coverage in the [source reconciliation](_bmad-output/planning-artifacts/architecture/architecture-wrenchbase-2026-09-30/source-reconciliation.md). Read the [API contract](docs/api-contract.md) before changing a client-visible endpoint, the [offline synchronization contract](docs/offline-sync.md) before changing queued work, and the [security and data lifecycle policy](docs/security-and-data-lifecycle.md) before changing identity, tenancy, or attachments.
 
-Use the [deployment guide](docs/deployment.md) for portable production and AWS
-reference operations, and the [UX and accessibility brief](docs/ux-accessibility.md)
-for browser workflows.
+Use the [deployment guide](docs/deployment.md) for portable production and AWS reference operations, and the [UX and accessibility brief](docs/ux-accessibility.md) for browser workflows.
 
 ## Project Status
 
 Wrenchbase is currently in early development.
 
-See the [canonical PRD](_bmad-output/planning-artifacts/prds/prd-wrenchbase-2026-09-21/prd.md)
-and [architecture](docs/architecture.md) for the current direction.
+See the [canonical PRD](_bmad-output/planning-artifacts/prds/prd-wrenchbase-2026-09-21/prd.md) and [architecture spine](_bmad-output/planning-artifacts/architecture/architecture-wrenchbase-2026-09-30/ARCHITECTURE-SPINE.md) for current direction. The [detailed architecture reference](docs/architecture.md) and [source reconciliation](_bmad-output/planning-artifacts/architecture/architecture-wrenchbase-2026-09-30/source-reconciliation.md) retain the source coverage.

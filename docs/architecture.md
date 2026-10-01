@@ -2,6 +2,8 @@
 
 Wrenchbase is a monorepo with a Symfony API, a Next.js browser application, PostgreSQL, and Docker Compose. The browser application is the primary client today, with a React Native client planned for the future.
 
+The [architecture spine](../_bmad-output/planning-artifacts/architecture/architecture-wrenchbase-2026-09-30/ARCHITECTURE-SPINE.md) governs cross-unit invariants. This document remains the detailed architecture reference; its section coverage is recorded in the [source reconciliation](../_bmad-output/planning-artifacts/architecture/architecture-wrenchbase-2026-09-30/source-reconciliation.md).
+
 ## Repository Layout
 
 ```text

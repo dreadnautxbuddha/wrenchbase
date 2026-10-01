@@ -13,7 +13,7 @@ Wrenchbase is an open-source, mobile-first asset management and maintenance trac
 
 - Read the [canonical PRD](_bmad-output/planning-artifacts/prds/prd-wrenchbase-2026-09-21/prd.md)
   before making product behavior or scope decisions.
-- Read the [architecture](docs/architecture.md) before changing application boundaries, domain structure, persistence design, client state, or offline behavior.
+- Read the [architecture spine](_bmad-output/planning-artifacts/architecture/architecture-wrenchbase-2026-09-30/ARCHITECTURE-SPINE.md) for cross-unit invariants and the [detailed architecture reference](docs/architecture.md) plus its [source reconciliation](_bmad-output/planning-artifacts/architecture/architecture-wrenchbase-2026-09-30/source-reconciliation.md) for section-level coverage before changing application boundaries, domain structure, persistence, client state, or offline behavior.
 - Follow the [contribution standards](CONTRIBUTING.md) for tests, quality checks, Markdown, and commits.
 - Use the [README](README.md) for the repository layout, stack, development environment, and root commands.
 
